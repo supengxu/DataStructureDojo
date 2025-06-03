@@ -58,6 +58,7 @@ import java.util.List;
 
 // @lc code=start
 class Solution {
+    ArrayList<String> res = new ArrayList<String>();
     private String letterMap[] = {
             " ",    //0
             "",     //1
@@ -71,22 +72,22 @@ class Solution {
             "wxyz"  //9
     };
     public List<String> letterCombinations(String digits) {
-        var res = new ArrayList<String>();
+
         if(digits.isEmpty())
             return res;
 
-        findCombinations(res,0,"",digits);
+        findCombinations(0,"",digits);
         return res;
     }
 
-    private void findCombinations(ArrayList<String> res, int index, String s, String digits) {
+    private void findCombinations(int index, String s, String digits) {
         if (index == digits.length()){
             res.add(s);
             return;
         }
         String letters = letterMap[digits.charAt(index) - '0'];
         for (int i = 0; i < letters.length(); i++) {
-           findCombinations(res, index + 1, s + letters.charAt(i), digits);
+           findCombinations(index + 1, s + letters.charAt(i), digits);
         }
     }
 
