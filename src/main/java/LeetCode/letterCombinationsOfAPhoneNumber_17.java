@@ -71,12 +71,23 @@ class Solution {
             "tuv",  //8
             "wxyz"  //9
     };
-    public List<String> letterCombinations(String digits) {
-
+    public List<String> letterCombinationsUsingRecursion(String digits) {
         if(digits.isEmpty())
             return res;
 
         findCombinations(0,"",digits);
+        return res;
+    }
+
+    public List<String> letterCombinations(String digits) {
+
+        return letterCombinationsUsingDfs(digits);
+
+    }
+    public List<String> letterCombinationsUsingDfs(String digits) {
+        if(digits.isEmpty())
+            return res;
+        findCombinations(0,new StringBuffer(),digits);
         return res;
     }
 
@@ -88,6 +99,20 @@ class Solution {
         String letters = letterMap[digits.charAt(index) - '0'];
         for (int i = 0; i < letters.length(); i++) {
            findCombinations(index + 1, s + letters.charAt(i), digits);
+        }
+    }
+
+    private void findCombinations(int index, StringBuffer sb, String digits) {
+        if (index == digits.length()){
+            res.add(sb.toString());
+            return;
+        }
+
+        String letters = letterMap[digits.charAt(index) - '0'];
+        for (int i = 0; i < letters.length(); i++) {
+            sb.append(letters.charAt(i));
+            findCombinations(index + 1, sb, digits);
+            sb.deleteCharAt(sb.length() - 1);
         }
     }
 
